@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Menu from "./components/Menu/Menu";
 import Order from "./components/Order/Order";
 import NavBar from "./components/NavBar/NavBar";
@@ -11,19 +11,23 @@ function App() {
   const [order, setOrder] = useState([]);
   const [submittedOrders, setSubmittedOrders] = useState([]);
 
-  useEffect(() => {
-    const getMenuItem = async () => {
-      const response = await fetch("/api_v1/menuitems/");
-      if (!response.ok) {
-        throw new Error("Network response was not OK");
-      } else {
-        const data = await response.json();
-        setMenuItems(data);
-      }
-    };
+  const handleError = (err) => {
+    console.warn(err);
+  };
 
-    getMenuItem();
+  const getMenuItem = useCallback(async () => {
+    const response = await fetch("/api_v1/menuitems/").catch(handleError);
+    if (!response.ok) {
+      throw new Error("Network response was not OK");
+    } else {
+      const data = await response.json();
+      setMenuItems(data);
+    }
   }, []);
+
+  useEffect(() => {
+    getMenuItem();
+  }, [getMenuItem]);
 
   // old order method
   // const updateOrder = (id) => {
