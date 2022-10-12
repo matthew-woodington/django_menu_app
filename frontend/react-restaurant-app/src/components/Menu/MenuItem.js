@@ -14,7 +14,11 @@ function MenuItem({ item, ...props }) {
         </div>
         <Card.Footer className="card-footer d-flex justify-content-between align-items-center">
           ${item.price.toFixed(2)}{" "}
-          <Button variant="secondary" type="button" onClick={() => props.updateOrder(item.id)}>
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => props.updateOrder(item.name, item.price)}
+          >
             Add to Order
           </Button>
         </Card.Footer>

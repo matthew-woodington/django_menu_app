@@ -7,7 +7,7 @@ import FeaturedSection from "./components/FeaturedSection/FeaturedSection";
 import AsideInfo from "./components/AsideInfo/AsideInfo";
 
 function App() {
-  const [menuItems, setMenuItems] = useState(null);
+  const [menuItems, setMenuItems] = useState([]);
   const [order, setOrder] = useState([]);
   const [submittedOrders, setSubmittedOrders] = useState([]);
 
@@ -25,11 +25,25 @@ function App() {
     getMenuItem();
   }, []);
 
-  const updateOrder = (id) => {
-    const index = menuItems.findIndex((item) => item.id === id);
-    const newOrderItem = menuItems[index];
+  // old order method
+  // const updateOrder = (id) => {
+  //   const index = menuItems.findIndex((item) => item.id === id);
+  //   const newOrderItem = menuItems[index];
+  //   setOrder([...order, newOrderItem]);
+  // };
+
+  const updateOrder = (name, price) => {
+    const newOrderItem = { name, price };
     setOrder([...order, newOrderItem]);
   };
+
+  // old order submit
+  // const addOrder = (order, customer, phone) => {
+  //   let finalOrder = { order, customer, phone };
+  //   alert("Your order has been submitted, thank you for your business!");
+  //   console.log(finalOrder);
+  //   setSubmittedOrders([...submittedOrders, finalOrder]);
+  // };
 
   const addOrder = (order, customer, phone) => {
     let finalOrder = { order, customer, phone };
@@ -38,9 +52,10 @@ function App() {
     setSubmittedOrders([...submittedOrders, finalOrder]);
   };
 
-  useEffect(() => {
-    localStorage.setItem("submittedOrders", JSON.stringify(submittedOrders));
-  }, [submittedOrders]);
+  // not needed
+  // useEffect(() => {
+  //   localStorage.setItem("submittedOrders", JSON.stringify(submittedOrders));
+  // }, [submittedOrders]);
 
   const resetOrder = () => {
     setOrder([]);
