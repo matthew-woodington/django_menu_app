@@ -49,11 +49,25 @@ function App() {
   //   setSubmittedOrders([...submittedOrders, finalOrder]);
   // };
 
-  const addOrder = (order, customer, phone) => {
-    let finalOrder = { order, customer, phone };
-    alert("Your order has been submitted, thank you for your business!");
+  const addOrder = async (order, customer, phone) => {
+    const finalOrder = { order, customer, phone };
     console.log(finalOrder);
-    setSubmittedOrders([...submittedOrders, finalOrder]);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(finalOrder),
+    };
+
+    const response = await fetch("/api_v1/orders/", options).catch(handleError);
+    if (!response.ok) {
+      throw new Error("Network response was not OK");
+    } else {
+      const orderData = await response.json();
+      console.log(orderData);
+    }
   };
 
   // not needed

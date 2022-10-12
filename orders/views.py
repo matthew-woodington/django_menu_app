@@ -3,6 +3,6 @@ from .models import Order
 from .serializers import OrderSerializer
 
 
-class OrderListApiView(generics.ListAPIView):
+class OrderListCreateApiView(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer

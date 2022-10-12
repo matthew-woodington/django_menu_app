@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import OrderListApiView
+from .views import OrderListCreateApiView
 
 # urlpatterns = [
 #     path('orders/', OrderListApiView.as_view())
 # ]
 
 urlpatterns = [
-    path('', OrderListApiView.as_view())
+    path('', OrderListCreateApiView.as_view())
 ]
